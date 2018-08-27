@@ -1,0 +1,24 @@
+{
+  "name": "ycFront",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "dependencies": {
+    "angular": "~1.5.11",
+    "angular-sanitize": "~1.5.11",
+    "grunt": "^1.0.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "moment": "^2.22.2",
+    "socket.io": "^2.1.1",
+    "underscore": "^1.9.1",
+    "video.js": "^7.0.3",
+    "videojs-youtube": "^2.5.0",
+    "vjs-video": "^0.1.11"
+  },
+  "author": "",
+  "license": "ISC"
+}

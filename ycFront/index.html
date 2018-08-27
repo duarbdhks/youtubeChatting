@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="./lib/video.js/dist/video-js.css">
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script src="./lib/angular/angular.js"></script>
+    <script src="./lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="./lib/video.js/dist/video.js"></script>
+    <script src="./lib/vjs-video/dist/vjs-video.js"></script>
+    <script src="./lib/videojs-youtube/dist/Youtube.js"></script>
+    <script src="./lib/underscore/underscore-min.js"></script>
+    <script src="./lib/socket.io-client/dist/socket.io.js"></script>
+    <script src="./lib/moment/moment.js"></script>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/controller.js"></script>
+    <script src="./js/service.js"></script>
+
+</head>
+<body ng-app="app" ng-controller="chattingController as er" ng-init="er.init('8qQWM67zmj8')">
+
+
+
+
+<br>
+<br>
+
+<div>소켓 준비됨? :: {{er.status.isReady}}</div>
+    <button ng-click="er.login()">login</button>
+    <button ng-click="er.token()">token</button>
+    <button ng-click="er.getUserInfo()">유저정보 겟</button>
+
+    <br>
+    <br>
+    <br>
+
+    <div>
+        <h1>라이브 주차 생성</h1>
+        브로드캐스트 제목 : <input type="text" ng-model="er.broadcast.title"><br>
+        브로드캐스트 내용 : <textarea ng-model="er.broadcast.description" ></textarea><br><br>
+        스트리밍 제목 : <input type="text" ng-model="er.streaming.title"><br>
+        스트리밍 내용 : <textarea ng-model="er.streaming.description" ></textarea><br>
+        <button ng-click="er.createLive()">생성하기</button>
+    </div>
+
+    <br>
+
+    <div>
+        <div ng-show="er.streamKey">스트림 키 : {{er.streamKey}}</div>
+        <button ng-click="er.startLive()">방송 시작</button>
+        <button ng-click="er.closeLive()">방송 종료</button>
+        <button ng-click="er.schBroadcast()">현재 방송중인거 소켓 시작</button>
+
+        <button ng-click="er.getBraodcast()">실시간방송 목록</button>
+        <button ng-click="er.allDelete()">삭제</button>
+
+        <button ng-click="er.outChatting()">채팅종료</button>
+    </div>
+    <div>
+        <pre>{{er.uid}}</pre>
+        <button ng-click="er.setUid(1)">교수입니다.</button>
+        <button ng-click="er.setUid(2)">학생입니다.</button>
+        <button ng-click="er.console()">노드 콘솔 버튼</button>
+        <button ng-click="er.testStart()">테스트 시작</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+
+
+    <div>
+        <video ng-if="er.media" class="video-js vjs-default-skin" controls preload="auto" width="340" height="145" vjs-video vjs-media="er.media"></video>
+
+
+        <div class="message-container">
+            <ul class="messages">
+                <li ng-repeat="message in er.messages" style="margin-bottom: 10px">
+                    <img ng-src="{{message.profileImageUrl}}" width="88" height="88">
+                    <div>이름 : {{message.name}}</div>
+                    <div>{{message.msg}}</div>
+                </li>
+            </ul>
+            <form name="chatForm" ng-submit="er.sendMessage()">
+                <input type="text" class="input-area" ng-model="er.chat.msg" placeholder="Message">
+                <input type="submit" value="전송" class="btn btn-success">
+            </form>
+        </div>
+
+    </div>
+
+    <div class="user-container">
+        <ul class="users">
+            <li ng-repeat="(uid, user) in er.users" style="margin-bottom: 10px">
+                <pre>uid : {{uid}}</pre>
+                <pre>{{user | json}}</pre>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
